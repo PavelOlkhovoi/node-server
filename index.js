@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors';
 import mongoose from 'mongoose'
 import router from './router.js'
 import { config as dotenvConfig } from 'dotenv';
@@ -13,13 +14,12 @@ const app = express()
 
 app.use(express.json())
 app.use('/api', router)
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    next();
-  });
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: 'GET, POST, OPTIONS',
+    allowedHeaders: 'Content-Type, Authorization',
+    credentials: true
+  }));
 
 async function startApp() {
     try {
