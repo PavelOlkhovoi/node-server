@@ -15,6 +15,7 @@ class PostController {
     async getAll(req, res) {
         try {
            const posts = await Post.find()
+           res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
            return res.json(posts)
         } catch (e) {
             res.status(500).json(e)
