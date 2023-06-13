@@ -1,6 +1,7 @@
 import express from 'express'
-// import cors from 'cors';
+import cors from 'cors';
 import mongoose from 'mongoose'
+import cookieParser from 'cookie-parser';
 import router from './router.js'
 import { config as dotenvConfig } from 'dotenv';
 
@@ -12,16 +13,11 @@ dotenvConfig();
 
 const app = express()
 
-// app.use(cors());
 app.use(express.json())
+app.use(cookieParser())
+app.use(cors());
 app.use('/api', router)
 
-// app.use(cors({
-//     origin: 'http://localhost:3000',
-//     methods: 'GET, POST, OPTIONS',
-//     allowedHeaders: 'Content-Type, Authorization',
-//     credentials: true
-//   }));
 
 async function startApp() {
     try {
