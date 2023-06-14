@@ -5,10 +5,7 @@ import cookieParser from 'cookie-parser';
 import router from './router.js'
 import { config as dotenvConfig } from 'dotenv';
 
-
-const PORT = 5000
-const db = process.env.DB
-
+const PORT = process.env.PORT
 dotenvConfig();
 
 const app = express()
