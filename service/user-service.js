@@ -24,6 +24,16 @@ class UserService {
             user: userDto
         }
     }
+
+    async activate(activationLink){
+        const user = await UserSchema.findOne({activationLink})
+        if(!user){
+            throw new Error('Incorrect link')
+        }
+
+        user.isActivated = true
+        await user.save()
+    }
 }
 
 
