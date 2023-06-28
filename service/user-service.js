@@ -4,12 +4,13 @@ import { v4 as uuidv4 } from 'uuid';
 import MailService from "./MailService.js"
 import TokenService from "./TokenService.js"
 import UserDto from "../dtos/UserDto.js"
+import ApiError from "../exceptions/api-error.js";
 
 class UserService {
     async registration(email, password){
         const candidate = await UserSchema.findOne({email})
         if(candidate){
-            throw new Error(`The ${email} has already existed`)
+            throw ApiError.BadRequest(`The ${email} has already existed`)
         }
         const hashPasswort = await bcrypt.hash(password, 3)
         const activationLink = uuidv4()
@@ -28,7 +29,7 @@ class UserService {
     async activate(activationLink){
         const user = await UserSchema.findOne({activationLink})
         if(!user){
-            throw new Error('Incorrect link')
+            throw ApiError.BadRequest('Incorrect link')
         }
 
         user.isActivated = true

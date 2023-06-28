@@ -6,7 +6,6 @@ dotenvConfig()
 class MailService {
 
     constructor(){
-        console.log('!!!!', process.env.SMTP_HOST, process.env.SMTP_PORT, process.env.SMTP_USER, process.env.SMTP_PASSWORD)
         this.transporter = nodemailer.createTransport({
             host: process.env.SMTP_HOST,
             port: process.env.SMTP_PORT,

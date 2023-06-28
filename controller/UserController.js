@@ -11,7 +11,7 @@ class UserContoller {
             res.cookie('refreshToken', userData.refresh, {maxage: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
             return res.json(userData)
         } catch (e) {
-            console.log(e)
+            next(e)
         }
     }
 
@@ -19,7 +19,7 @@ class UserContoller {
         try {
             
         } catch (e) {
-            
+            next(e)
         }
     }
 
@@ -27,7 +27,7 @@ class UserContoller {
         try {
             
         } catch (e) {
-            console.log(e)
+            next(e)
         }
     }
 
@@ -37,7 +37,7 @@ class UserContoller {
             await UserService.activate(activationLink)
             return res.redirect(process.env.CLIENT_URL)
         } catch (e) {
-            
+            next(e)
         }
     }
 
@@ -45,7 +45,7 @@ class UserContoller {
         try {
             
         } catch (e) {
-            
+            next(e)
         }
     }
 
@@ -54,7 +54,7 @@ class UserContoller {
             res.json(['123', '456'])
             
         } catch (e) {
-            
+            next(e)
         }
     }
 
