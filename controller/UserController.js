@@ -1,11 +1,17 @@
 import UserService from '../service/user-service.js'
 import { config as dotenvConfig } from 'dotenv';
+import { validationResult } from 'express-validator';
+import ApiError from '../exceptions/api-error.js';
 
 dotenvConfig()
 
 class UserContoller {
     async registration(req, res, next){
         try {
+            const errors = validationResult(req)
+            if(!errors.isEmpty()){
+                return next(ApiError.BadRequest('validation error', errors.array()))
+            }
             const {email, password} = req.body;
             const userData = await UserService.registration(email, password)
             res.cookie('refreshToken', userData.refresh, {maxage: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
